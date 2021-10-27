@@ -4,7 +4,6 @@ const app = require('./index');
 const http = require('http');
 
 
-
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const mongoString = require('./config/mongo.json').url;
@@ -24,6 +23,9 @@ function connect() {
   });
 }
 connect();
+
+
+
 var server = http.Server(app);
 server.listen(process.env.PORT || 8000);
 

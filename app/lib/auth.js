@@ -3,14 +3,17 @@ const jwtVerify = promise.promisify(require('jsonwebtoken').verify);
 const db = global.db;
 
 module.exports = function () {
+
   return async (req, res, next) => {
     console.log('api token', global.kraken.get('app:jwtSecret'))
 
     if (!req.headers.authorization) {
       //return res.status(401).send({status: "error", message: "authorization header missing"}).end();
+      console.log('no auth given')
       next();
     }
     else {
+      console.log(' auth');
       const token = req.headers.authorization.split(' ')[1];
       console.log('tok: ', token)
       try {

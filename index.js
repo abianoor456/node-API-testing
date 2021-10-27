@@ -3,7 +3,7 @@ const express = require('express');
 const kraken = require('kraken-js');
 const path = require('path');
 const cors = require('cors');
-
+//const db = global.db;
 let options, app;
 
 options = {
@@ -16,6 +16,11 @@ app = module.exports = express();
 app.use(cors());
 
 app.use(express.static(__dirname + '/public'));
+
+app.get('/user', function (req, res) {
+  res.status(200).json({ name: 'john' });
+});
+
 
 global.db = require('./app/models/index');
 global.log = require('./app/lib/logger');
