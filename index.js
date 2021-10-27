@@ -27,3 +27,5 @@ app.on('start', function () {
   global.log.info('Application ready to serve requests.');
   global.log.info('Environment: %s', app.kraken.get('env:env'));
 });
+
+module.exports = app;

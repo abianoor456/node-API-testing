@@ -2,7 +2,7 @@ const db = global.db;
 const validator = require('../../../lib/validators/posts');
 
 module.exports = (router) => {
-    router.post('/', validator.addPost,async (req, res) => {
+    router.post('/', validator.addPost, async (req, res) => {
         req.body.user = req.user;
         const post = await db.Posts.create(req.body)
         console.log(post.id);
@@ -17,7 +17,7 @@ module.exports = (router) => {
         res.http200({ Posts: post });
     });
 
-    router.put('/',validator.addPost, async (req, res) => {
+    router.put('/', validator.addPost, async (req, res) => {
         req.body.user = req.user;
         const post = await db.Posts.findOneAndUpdate({
             title: req.body.title,
@@ -25,14 +25,14 @@ module.exports = (router) => {
         }, req.body, {
             upsert: false
         })
-       // console.log(post);
+        // console.log(post);
         if (post === null)
             res.http400('Post not found');
         else
             res.http200({ Posts: post });
     });
 
-    router.delete('/',  async (req, res) => {
+    router.delete('/', async (req, res) => {
         const post = await db.Posts.deleteOne({ "_id": req.body.id });
         if (post.deletedCount === 0)
             res.http400('Post not found');
@@ -40,8 +40,9 @@ module.exports = (router) => {
             res.http200({ Posts: post });
     })
 
-    router.get('/allPosts', async(req, res)=>{
-        const post= await db.Posts.find({user: req.user}).populate('user');
+    router.get('/allPosts', async (req, res) => {
+        console.log('All posts called')
+        const post = await db.Posts.find({ user: req.user }).populate('user');
         res.http200({ Posts: post });
     })
 
